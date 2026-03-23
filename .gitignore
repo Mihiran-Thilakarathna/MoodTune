@@ -28,6 +28,7 @@ desktop.ini
 keystore.properties
 *.jks
 *.keystore
+google-services.json
 
 # Python artifacts (model training script)
 __pycache__/
