@@ -64,36 +64,69 @@ def load_fer2013(csv_path):
 
 # ── Model definition (standard FER-2013 CNN) ─────────────────────────────────
 def build_fer_model():
-    inputs = tf.keras.Input(shape=INPUT_SHAPE, name="input_face")
+    input_face = tf.keras.Input(shape=INPUT_SHAPE, name="input_face")
 
-    x = tf.keras.layers.Conv2D(64, (5, 5), padding="same", activation="relu")(inputs)
-    x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.MaxPooling2D(pool_size=(3, 3), strides=(2, 2), padding="same")(x)
-    x = tf.keras.layers.Dropout(0.25)(x)
+    # ── Augmentation Layers (Active during training only) ──
+    # Helps with generalization for rotation, zoom, contrast
+    x = tf.keras.layers.RandomFlip("horizontal")(input_face)
+    x = tf.keras.layers.RandomRotation(0.10)(x)  # ±10% rotation
+    x = tf.keras.layers.RandomZoom(0.10)(x)
+    x = tf.keras.layers.RandomContrast(0.1)(x)
 
-    x = tf.keras.layers.Conv2D(64, (3, 3), padding="same", activation="relu")(x)
+    # ── Block 1 ──
+    x = tf.keras.layers.Conv2D(64, (3, 3), padding="same", use_bias=False)(x)
     x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.Conv2D(64, (3, 3), padding="same", activation="relu")(x)
+    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.Conv2D(64, (3, 3), padding="same", use_bias=False)(x)
     x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding="same")(x)
-    x = tf.keras.layers.Dropout(0.25)(x)
+    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.MaxPooling2D(pool_size=(2, 2))(x)
+    x = tf.keras.layers.Dropout(0.2)(x)
 
-    x = tf.keras.layers.Conv2D(128, (3, 3), padding="same", activation="relu")(x)
+    # ── Block 2 ──
+    x = tf.keras.layers.Conv2D(128, (3, 3), padding="same", use_bias=False)(x)
     x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.Conv2D(128, (3, 3), padding="same", activation="relu")(x)
+    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.Conv2D(128, (3, 3), padding="same", use_bias=False)(x)
     x = tf.keras.layers.BatchNormalization()(x)
-    x = tf.keras.layers.MaxPooling2D(pool_size=(2, 2), strides=(2, 2), padding="same")(x)
-    x = tf.keras.layers.Dropout(0.25)(x)
+    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.MaxPooling2D(pool_size=(2, 2))(x)
+    x = tf.keras.layers.Dropout(0.3)(x)
 
-    x = tf.keras.layers.Flatten()(x)
-    x = tf.keras.layers.Dense(1024, activation="relu")(x)
+    # ── Block 3 ──
+    x = tf.keras.layers.Conv2D(256, (3, 3), padding="same", use_bias=False)(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.Conv2D(256, (3, 3), padding="same", use_bias=False)(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.MaxPooling2D(pool_size=(2, 2))(x)
+    x = tf.keras.layers.Dropout(0.4)(x)
+
+    # ── Block 4 ──
+    x = tf.keras.layers.Conv2D(512, (3, 3), padding="same", use_bias=False)(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.MaxPooling2D(pool_size=(2, 2))(x)
     x = tf.keras.layers.Dropout(0.5)(x)
-    x = tf.keras.layers.Dense(256, activation="relu")(x)
-    x = tf.keras.layers.Dropout(0.25)(x)
+
+    # ── Dense Layers ──
+    x = tf.keras.layers.Flatten()(x)
+
+    # L2 regularization to prevent overfitting to the "happy/neutral" majority
+    x = tf.keras.layers.Dense(512, kernel_regularizer=tf.keras.regularizers.l2(0.02), use_bias=False)(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.Dropout(0.5)(x)
+
+    x = tf.keras.layers.Dense(256, kernel_regularizer=tf.keras.regularizers.l2(0.02), use_bias=False)(x)
+    x = tf.keras.layers.BatchNormalization()(x)
+    x = tf.keras.layers.Activation("relu")(x)
+    x = tf.keras.layers.Dropout(0.5)(x)
 
     outputs = tf.keras.layers.Dense(NUM_CLASSES, activation="softmax", name="emotion")(x)
 
-    return tf.keras.Model(inputs, outputs, name="FER_CNN")
+    return tf.keras.Model(input_face, outputs, name="FER_CNN_Improved")
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
@@ -130,17 +163,10 @@ model.compile(
 )
 
 # ── Data augmentation using tf.data (TF 2.20 compatible) ────────────────────
-def augment(image, label):
-    """Apply random augmentations to a single image tensor."""
-    # Random horizontal flip
-    image = tf.image.random_flip_left_right(image)
-    # Random brightness / contrast
-    image = tf.image.random_brightness(image, max_delta=0.1)
-    image = tf.image.random_contrast(image, lower=0.9, upper=1.1)
-    # Random crop → pad back to 48×48 (simulates shift/zoom)
-    image = tf.image.resize_with_crop_or_pad(image, 52, 52)   # pad to 52×52
-    image = tf.image.random_crop(image, size=[48, 48, 1])       # crop back to 48×48
-    image = tf.clip_by_value(image, 0.0, 1.0)
+# NOTE: We moved augmentation INTO the model (layers.Random...) so we don't
+# need a complex map function here anymore.
+def preprocess(image, label):
+    """Basic preprocessing if needed."""
     return image, label
 
 AUTOTUNE = tf.data.AUTOTUNE
@@ -148,7 +174,7 @@ AUTOTUNE = tf.data.AUTOTUNE
 train_ds = (
     tf.data.Dataset.from_tensor_slices((X_train, y_train))
     .shuffle(buffer_size=len(X_train), seed=42)
-    .map(augment, num_parallel_calls=AUTOTUNE)
+    # .map(augment, num_parallel_calls=AUTOTUNE)  <-- Removed, using layers now
     .batch(BATCH_SIZE)
     .prefetch(AUTOTUNE)
 )
