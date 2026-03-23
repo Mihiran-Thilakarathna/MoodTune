@@ -1,101 +1,109 @@
-# MoodTune — Android App
+# MoodTune 🎵😐🙂
 
-## Overview
-MoodTune detects your facial emotion using the front camera and plays a matching YouTube song.
+**MoodTune** is an intelligent Android application that detects your current emotion using facial recognition and automatically plays music that perfectly matches your mood. Whether you're happy, sad, or angry, MoodTune finds the right track for you.
 
-## Architecture
+## ✨ Features
+
+*   **Real-time Emotion Detection**: Uses the front camera to scan your face and identify emotions.
+*   **AI-Powered Analysis**: Integrates **Google ML Kit** for face detection and a custom **TensorFlow Lite (TFLite)** model for emotion classification.
+*   **Smart Music Recommendations**: Connects to music APIs (Jamendo/YouTube) to fetch and play songs based on the detected mood.
+*   **Modern UI/UX**: Clean, animated interface built with Material Design components and **Lottie** animations.
+*   **MVVM Architecture**: Follows best practices for robust and maintainable code.
+
+## 📱 Screenshots
+
+*(Add screenshots of your app here: Splash Screen, Scan Screen, and Result/Player Screen)*
+
+## 🛠 Tech Stack
+
+*   **Language**: Java
+*   **Architecture**: MVVM (Model-View-ViewModel)
+*   **Machine Learning**:
+    *   **Google ML Kit**: For high-speed face detection.
+    *   **TensorFlow Lite**: For running the custom emotion recognition model on-device.
+    *   **Python (TensorFlow/Keras)**: Used for training the CNN model on the FER-2013 dataset.
+*   **Networking**: Retrofit 2, OkHttp 3, Gson
+*   **UI Components**: CameraX, ViewBinding, Glide, Lottie, Material Components
+*   **Build System**: Gradle 8.2
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+*   Android Studio Iguana or newer
+*   JDK 17
+*   Android Device with a front camera (Emulator with camera support works too)
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Mihiran-Thilakarathna/MoodTune.git
+    ```
+2.  **Open in Android Studio:**
+    *   Launch Android Studio -> `File` -> `Open` -> Select the `MoodTune` folder.
+3.  **Sync Gradle:**
+    *   Allow Android Studio to download dependencies and sync the project.
+4.  **Run the App:**
+    *   Connect your Android device or start an emulator.
+    *   Click the **Run** button (▶).
+
+## 🧠 Model Training
+
+The app comes with a pre-trained model (`emotion_model.tflite`) in the assets folder. If you want to retrain or improve the model:
+
+1.  **Navigate to the project root.**
+2.  **Download the dataset:**
+    *   Download `fer2013.csv` from [Kaggle](https://www.kaggle.com/datasets/msambare/fer2013).
+    *   Place it in the root directory.
+3.  **Install Python dependencies:**
+    ```bash
+    pip install tensorflow pandas numpy scikit-learn
+    ```
+4.  **Run the training script:**
+    ```bash
+    python generate_emotion_model.py
+    ```
+    *   This will train a CNN model and verify it.
+    *   It automatically saves the optimized `emotion_model.tflite` to `app/src/main/assets/`.
+
+## 📂 Project Structure
+
 ```
-MVVM  (Model → Repository → ViewModel → Activity/View)
+MoodTune/
+├── app/
+│   ├── src/main/
+│   │   ├── java/com/moodtune/app/
+│   │   │   ├── data/       # Models & API Responses
+│   │   │   ├── network/    # Retrofit Clients & Services
+│   │   │   ├── ui/         # Activities (View)
+│   │   │   ├── utils/      # Helper classes (FaceAnalyzer, NetworkUtils)
+│   │   │   └── viewmodel/  # ViewModels
+│   │   ├── assets/         # TFLite model & JSON files
+│   │   └── res/            # Layouts, Drawables, Animations
+├── generate_emotion_model.py # Python script for model training
+└── README.md
 ```
 
-## Folder Structure
-```
-app/src/main/
-├── assets/
-│   ├── emotion_model.tflite   ← ⚠️  YOU MUST ADD THIS FILE (see below)
-│   ├── music_wave.json        (Lottie – splash animation)
-│   ├── face_scan.json         (Lottie – scan overlay animation)
-│   ├── music_loading.json     (Lottie – loading animation)
-│   └── camera_permission.json (Lottie – permission prompt animation)
-├── java/com/moodtune/app/
-│   ├── data/
-│   │   ├── model/
-│   │   │   ├── EmotionResult.java
-│   │   │   ├── VideoData.java
-│   │   │   └── YouTubeSearchResponse.java
-│   │   └── repository/
-│   │       └── YouTubeRepository.java
-│   ├── network/
-│   │   ├── RetrofitClient.java
-│   │   └── YouTubeApiService.java
-│   ├── ui/
-│   │   ├── SplashActivity.java
-│   │   ├── MainActivity.java
-│   │   └── ResultActivity.java
-│   ├── utils/
-│   │   ├── FaceAnalyzer.java
-│   │   ├── MoodColorHelper.java
-│   │   └── NetworkUtils.java
-│   └── viewmodel/
-│       ├── ScanViewModel.java
-│       └── ResultViewModel.java
-└── res/
-    ├── anim/          (slide_up, slide_down, fade_in, pulse)
-    ├── drawable/      (backgrounds, icons)
-    ├── font/          (Poppins — see note below)
-    ├── layout/        (activity_splash, activity_main, activity_result)
-    └── values/        (colors, strings, themes, dimens)
-```
+## 📜 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to submit a Pull Request.
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
+## 📧 Contact
+
+**Mihiran Thilakarathna**
+- [GitHub Profile](https://github.com/Mihiran-Thilakarathna)
+- [LinkedIn Profile](https://www.linkedin.com/in/mihiran-thilakarathna-9478302a8/)
 
 ---
-
-## ⚠️ Required Manual Steps
-
-### 1. Add TFLite Emotion Model
-Place your `emotion_model.tflite` file in:
-```
-app/src/main/assets/emotion_model.tflite
-```
-The model must accept input shape `[1, 48, 48, 1]` (grayscale face, normalised 0–1)  
-and output shape `[1, 7]` with labels in this order:
-```
-angry, disgusted, fearful, happy, neutral, sad, surprised
-```
-A compatible pre-trained model: https://github.com/omar178/Emotion-recognition
-
-### 2. Add Poppins Fonts
-Download from https://fonts.google.com/specimen/Poppins and place in `app/src/main/res/font/`:
-- `poppins_regular.ttf`
-- `poppins_medium.ttf`
-- `poppins_semibold.ttf`
-- `poppins_bold.ttf`
-
-### 3. Replace Lottie Animations (Optional but Recommended)
-Download high-quality animations from https://lottiefiles.com and replace the placeholder JSONs in `assets/`:
-- `music_wave.json`   → search "music wave" or "audio equalizer"
-- `face_scan.json`    → search "face scan" or "face recognition"
-- `music_loading.json`→ search "music loading"
-
-### 4. Update local.properties
-Set your Android SDK path in `local.properties`.
-
-### 5. Gradle Wrapper
-Run from your project root to generate the wrapper:
-```
-gradle wrapper --gradle-version 8.2
-```
-Or open the project in Android Studio which will handle this automatically.
-
----
-
-## Build & Run
-1. Open the project in **Android Studio Hedgehog** (or later)
-2. Complete the manual steps above
-3. Connect a physical device (camera required) or use emulator with virtual front camera
-4. Click **Run ▶**
-
----
-
-## API Key
-The YouTube Data API key is embedded in `app/build.gradle` via `BuildConfig.YOUTUBE_API_KEY`.  
-For production, move it to `local.properties` and read it via `buildConfigField`.
+*Made by Mihiran Thilakarathna*
