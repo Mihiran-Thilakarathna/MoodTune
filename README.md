@@ -14,17 +14,13 @@
 
 <div align="center">
 
-| Splash | Scan Screen | Scan Screen |
-|:---:|:---:|:---:|
-| <img src="screenshots/splash.jpeg" width="200" alt="Splash Screen"/> | <img src="screenshots/scan_happy.jpeg" width="200" alt="Scan - Happy"/> | <img src="screenshots/scan_surprised.jpeg" width="200" alt="Scan - Surprised"/> |
+| Splash | Scan Screen | Scan Screen | Result - Happy |
+|:---:|:---:|:---:|:---:|
+| <img src="screenshots/splash.jpeg" width="160" alt="Splash Screen"/> | <img src="screenshots/scan_happy.jpeg" width="160" alt="Scan - Happy"/> | <img src="screenshots/scan_surprised.jpeg" width="160" alt="Scan - Surprised"/> | <img src="screenshots/result_happy.jpeg" width="160" alt="Result - Happy"/> |
 
-| Result - Happy | Result - Surprised | Music Player |
+| Result - Surprised | Music Player | YouTube Songs |
 |:---:|:---:|:---:|
-| <img src="screenshots/result_happy.jpeg" width="200" alt="Result - Happy"/> | <img src="screenshots/result_surprised.jpeg" width="200" alt="Result - Surprised"/> | <img src="screenshots/music_player.jpeg" width="200" alt="Music Player"/> |
-
-| YouTube Songs |
-|:---:|
-| <img src="screenshots/youtube_songs.jpeg" width="200" alt="YouTube Songs"/> |
+| <img src="screenshots/result_surprised.jpeg" width="200" alt="Result - Surprised"/> | <img src="screenshots/music_player.jpeg" width="200" alt="Music Player"/> | <img src="screenshots/youtube_songs.jpeg" width="200" alt="YouTube Songs"/> |
 
 </div>
 
