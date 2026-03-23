@@ -10,24 +10,21 @@
 *   **Modern UI/UX**: Clean, animated interface built with Material Design components and **Lottie** animations.
 *   **MVVM Architecture**: Follows best practices for robust and maintainable code.
 
-## 📱 Screenshots
+## 📱 UI Showcase
 
 <div align="center">
 
 | Splash | Scan Screen | Scan Screen |
 |:---:|:---:|:---:|
 | <img src="screenshots/splash.jpeg" width="200" alt="Splash Screen"/> | <img src="screenshots/scan_happy.jpeg" width="200" alt="Scan - Happy"/> | <img src="screenshots/scan_surprised.jpeg" width="200" alt="Scan - Surprised"/> |
-| **Splash** | **Scan (Happy)** | **Scan (Surprised)** |
 
 | Result - Happy | Result - Surprised | Music Player |
 |:---:|:---:|:---:|
 | <img src="screenshots/result_happy.jpeg" width="200" alt="Result - Happy"/> | <img src="screenshots/result_surprised.jpeg" width="200" alt="Result - Surprised"/> | <img src="screenshots/music_player.jpeg" width="200" alt="Music Player"/> |
-| **Result (Happy)** | **Result (Surprised)** | **Music Player** |
 
 | YouTube Songs |
 |:---:|
 | <img src="screenshots/youtube_songs.jpeg" width="200" alt="YouTube Songs"/> |
-| **YouTube Songs** |
 
 </div>
 
