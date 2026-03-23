@@ -1,12 +1,12 @@
-# MoodTune 🎵😐🙂
+# MoodTune 🎵
 
-**MoodTune** is an intelligent Android application that detects your current emotion using facial recognition and automatically plays music that perfectly matches your mood. Whether you're happy, sad, or angry, MoodTune finds the right track for you.
+**MoodTune** is an intelligent Android application that detects your current emotion using facial recognition and recommends music that perfectly matches your mood. Simply tap the play button to enjoy songs tailored to how you're feeling — whether you're happy, sad, or angry, MoodTune finds the right track for you.
 
 ## ✨ Features
 
 *   **Real-time Emotion Detection**: Uses the front camera to scan your face and identify emotions.
 *   **AI-Powered Analysis**: Integrates **Google ML Kit** for face detection and a custom **TensorFlow Lite (TFLite)** model for emotion classification.
-*   **Smart Music Recommendations**: Connects to music APIs (Jamendo/YouTube) to fetch and play songs based on the detected mood.
+*   **Smart Music Recommendations**: Connects to music APIs (Jamendo/YouTube) to fetch songs based on the detected mood. Tap the play button to listen to a recommended track, or browse mood-matched YouTube videos and open them directly with a single tap.
 *   **Modern UI/UX**: Clean, animated interface built with Material Design components and **Lottie** animations.
 *   **MVVM Architecture**: Follows best practices for robust and maintainable code.
 
@@ -14,22 +14,20 @@
 
 <div align="center">
 
-### 🎬 Splash Screen
-<img src="screenshots/splash.jpeg" width="250" alt="Splash Screen"/>
+| Splash | Scan Screen | Scan Screen |
+|:---:|:---:|:---:|
+| <img src="screenshots/splash.jpeg" width="200" alt="Splash Screen"/> | <img src="screenshots/scan_happy.jpeg" width="200" alt="Scan - Happy"/> | <img src="screenshots/scan_surprised.jpeg" width="200" alt="Scan - Surprised"/> |
+| **Splash** | **Scan (Happy)** | **Scan (Surprised)** |
 
-### 📷 Scan Screen
-<img src="screenshots/scan_happy.jpeg" width="250" alt="Scan Screen - Happy"/>
-<img src="screenshots/scan_surprised.jpeg" width="250" alt="Scan Screen - Surprised"/>
+| Result - Happy | Result - Surprised | Music Player |
+|:---:|:---:|:---:|
+| <img src="screenshots/result_happy.jpeg" width="200" alt="Result - Happy"/> | <img src="screenshots/result_surprised.jpeg" width="200" alt="Result - Surprised"/> | <img src="screenshots/music_player.jpeg" width="200" alt="Music Player"/> |
+| **Result (Happy)** | **Result (Surprised)** | **Music Player** |
 
-### 🎭 Emotion Detection Results
-<img src="screenshots/result_happy.jpeg" width="250" alt="Result - Happy"/>
-<img src="screenshots/result_surprised.jpeg" width="250" alt="Result - Surprised"/>
-
-### 🎵 Music Player
-<img src="screenshots/music_player.jpeg" width="250" alt="Music Player"/>
-
-### 📺 YouTube Songs
-<img src="screenshots/youtube_songs.jpeg" width="250" alt="YouTube Songs List"/>
+| YouTube Songs |
+|:---:|
+| <img src="screenshots/youtube_songs.jpeg" width="200" alt="YouTube Songs"/> |
+| **YouTube Songs** |
 
 </div>
 
