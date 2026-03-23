@@ -14,9 +14,9 @@
 
 <div align="center">
 
-| Splash | Scan Screen | Scan Screen | Result - Happy |
+| Splash | Scan Screen | Result - Happy | Scan Screen |
 |:---:|:---:|:---:|:---:|
-| <img src="screenshots/splash.jpeg" width="160" alt="Splash Screen"/> | <img src="screenshots/scan_happy.jpeg" width="160" alt="Scan - Happy"/> | <img src="screenshots/scan_surprised.jpeg" width="160" alt="Scan - Surprised"/> | <img src="screenshots/result_happy.jpeg" width="160" alt="Result - Happy"/> |
+| <img src="screenshots/splash.jpeg" width="160" alt="Splash Screen"/> | <img src="screenshots/scan_happy.jpeg" width="160" alt="Scan - Happy"/> | <img src="screenshots/result_happy.jpeg" width="160" alt="Result - Happy"/> | <img src="screenshots/scan_surprised.jpeg" width="160" alt="Scan - Surprised"/> |
 
 | Result - Surprised | Music Player | YouTube Songs |
 |:---:|:---:|:---:|
