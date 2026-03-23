@@ -12,7 +12,26 @@
 
 ## 📱 Screenshots
 
-*(Add screenshots of your app here: Splash Screen, Scan Screen, and Result/Player Screen)*
+<div align="center">
+
+### 🎬 Splash Screen
+<img src="screenshots/splash.jpeg" width="250" alt="Splash Screen"/>
+
+### 📷 Scan Screen
+<img src="screenshots/scan_happy.jpeg" width="250" alt="Scan Screen - Happy"/>
+<img src="screenshots/scan_surprised.jpeg" width="250" alt="Scan Screen - Surprised"/>
+
+### 🎭 Emotion Detection Results
+<img src="screenshots/result_happy.jpeg" width="250" alt="Result - Happy"/>
+<img src="screenshots/result_surprised.jpeg" width="250" alt="Result - Surprised"/>
+
+### 🎵 Music Player
+<img src="screenshots/music_player.jpeg" width="250" alt="Music Player"/>
+
+### 📺 YouTube Songs
+<img src="screenshots/youtube_songs.jpeg" width="250" alt="YouTube Songs List"/>
+
+</div>
 
 ## 🛠 Tech Stack
 
@@ -81,6 +100,7 @@ MoodTune/
 │   │   │   └── viewmodel/  # ViewModels
 │   │   ├── assets/         # TFLite model & JSON files
 │   │   └── res/            # Layouts, Drawables, Animations
+├── screenshots/            # App UI Screenshots
 ├── generate_emotion_model.py # Python script for model training
 └── README.md
 ```
