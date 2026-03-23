@@ -1,0 +1,46 @@
+# Built output
+build/
+**/build/
+out/
+
+# Gradle cache
+.gradle/
+**/.gradle/
+
+# Android local properties (contains SDK path — never commit)
+local.properties
+
+# IDE — IntelliJ / Android Studio
+.idea/
+*.iml
+*.iws
+*.ipr
+captures/
+.externalNativeBuild/
+.cxx/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Signing / secrets (never commit these)
+keystore.properties
+*.jks
+*.keystore
+
+# Python artifacts (model training script)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Large datasets and models
+fer2013.csv
+best_fer_model.keras
+training_log.txt
+training_error.txt
+
+# Virtual Environment
+venv/
+env/

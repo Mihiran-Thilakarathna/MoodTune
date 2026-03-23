@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark gradient background for all screens -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="135"
+        android:centerColor="#16213E"
+        android:endColor="#0F3460"
+        android:startColor="#0D0D1A"
+        android:type="linear" />
+</shape>

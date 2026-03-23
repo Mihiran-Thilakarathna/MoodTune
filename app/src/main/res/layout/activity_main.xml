@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Main Scanner Activity Layout
+    Features:
+    - Full-screen dark gradient background
+    - CameraX PreviewView (circular crop)
+    - Animated scan ring overlay
+    - Status text for guidance
+    - Gradient "Scan My Mood" FAB button
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_main_gradient"
+    tools:context=".ui.MainActivity">
+
+    <!-- Top header bar -->
+    <LinearLayout
+        android:id="@+id/headerBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/spacing_md"
+        android:paddingTop="@dimen/spacing_lg"
+        android:paddingBottom="@dimen/spacing_sm"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_music_note"
+            android:tint="@color/primary"
+            android:contentDescription="@string/cd_app_logo" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_xl"
+            android:fontFamily="@font/poppins_bold" />
+
+    </LinearLayout>
+
+    <!-- Glass card containing camera preview + scan ring -->
+    <FrameLayout
+        android:id="@+id/scanContainer"
+        android:layout_width="@dimen/scan_circle_size"
+        android:layout_height="@dimen/scan_circle_size"
+        app:layout_constraintBottom_toTopOf="@id/statusCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerBar"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginBottom="32dp">
+
+        <!-- Outer pulse ring (animated) -->
+        <ImageView
+            android:id="@+id/outerPulseRing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bg_scan_pulse"
+            android:layout_gravity="center"
+            android:alpha="0.6"
+            android:contentDescription="@null" />
+
+        <!-- Camera preview (CameraX) - circular clip via outline -->
+        <androidx.camera.view.PreviewView
+            android:id="@+id/cameraPreview"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:layout_gravity="center"
+            android:clipToOutline="true"
+            android:outlineProvider="bounds"
+            android:contentDescription="@string/cd_camera_preview"
+            app:scaleType="fillCenter" />
+
+        <!-- Scan border ring overlay -->
+        <ImageView
+            android:id="@+id/scanRing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/bg_scan_circle"
+            android:layout_gravity="center"
+            android:contentDescription="@null" />
+
+        <!-- Scanning Lottie overlay (face scan lines animation) -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieScanning"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            app:lottie_fileName="face_scan.json"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_speed="1.5" />
+
+    </FrameLayout>
+
+    <!-- Status / instruction card (glass morphism) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/statusCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_lg"
+        app:cardBackgroundColor="#1AFFFFFF"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toTopOf="@id/btnScanMood"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="@dimen/spacing_lg">
+
+            <TextView
+                android:id="@+id/tvStatusTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/align_face_hint"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_md"
+                android:fontFamily="@font/poppins_semibold"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/tvStatusSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="We\'ll detect your emotion using AI"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_body"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:layout_marginTop="4dp" />
+
+            <!-- Confidence/progress bar (shown during scanning) -->
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/scanProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_sm"
+                android:visibility="gone"
+                android:indeterminate="true"
+                app:indicatorColor="@color/primary"
+                app:trackColor="@color/white_20"
+                app:trackCornerRadius="4dp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Scan Mood Button -->
+    <Button
+        android:id="@+id/btnScanMood"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/btn_height"
+        android:layout_marginHorizontal="@dimen/spacing_xl"
+        android:layout_marginBottom="@dimen/spacing_xxl"
+        android:background="@drawable/bg_btn_gradient"
+        android:text="@string/scan_mood_button"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_md"
+        android:fontFamily="@font/poppins_semibold"
+        android:letterSpacing="0.05"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Permission denied overlay (initially hidden) -->
+    <LinearLayout
+        android:id="@+id/permissionOverlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="@dimen/spacing_xl"
+        android:visibility="gone"
+        android:background="@drawable/bg_main_gradient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            app:lottie_fileName="camera_permission.json"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/camera_permission_required"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_md"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/spacing_md" />
+
+        <Button
+            android:id="@+id/btnGrantPermission"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginTop="@dimen/spacing_lg"
+            android:background="@drawable/bg_btn_gradient"
+            android:text="@string/grant_permission"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_semibold"
+            android:paddingHorizontal="32dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

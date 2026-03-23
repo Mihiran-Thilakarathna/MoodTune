@@ -1,0 +1,47 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme (dark, Glassmorphism-ready) -->
+    <style name="Theme.MoodTune" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="android:statusBarColor">@color/bg_dark</item>
+        <item name="android:navigationBarColor">@color/bg_dark</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <!-- Splash Screen theme -->
+    <style name="Theme.MoodTune.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/bg_dark</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.MoodTune</item>
+    </style>
+
+    <!-- Glass Card style -->
+    <style name="GlassCard">
+        <item name="android:background">@drawable/bg_glass_card</item>
+        <item name="android:elevation">8dp</item>
+    </style>
+
+    <!-- Primary gradient button -->
+    <style name="GradientButton">
+        <item name="android:background">@drawable/bg_btn_gradient</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:elevation">6dp</item>
+    </style>
+
+    <!-- Mood label text style -->
+    <style name="MoodLabel">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:shadowColor">@color/primary</item>
+        <item name="android:shadowRadius">12</item>
+    </style>
+
+</resources>

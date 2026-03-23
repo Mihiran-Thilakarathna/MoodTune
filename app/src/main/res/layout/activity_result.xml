@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_main_gradient"
+    tools:context=".ui.ResultActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="96dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ── MOOD HEADER ── -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/moodHeaderCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_md"
+                android:layout_marginTop="@dimen/spacing_lg"
+                app:cardBackgroundColor="#00000000"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_lg">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="@string/we_detected"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_body" />
+
+                    <TextView
+                        android:id="@+id/tvMoodEmoji"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_sm"
+                        android:text="😄"
+                        android:textSize="56sp"
+                        tools:text="😄" />
+
+                    <TextView
+                        android:id="@+id/tvMoodLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_xs"
+                        android:fontFamily="@font/poppins_bold"
+                        android:shadowColor="@color/primary"
+                        android:shadowDx="0"
+                        android:shadowDy="0"
+                        android:shadowRadius="16"
+                        android:text="Happy"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_xxl"
+                        tools:text="Happy" />
+
+                    <TextView
+                        android:id="@+id/tvConfidence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_sm"
+                        android:background="@drawable/bg_btn_gradient"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="4dp"
+                        android:text="Confidence: 92%"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_sm"
+                        tools:text="Confidence: 92%" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- ── LOADING ── -->
+            <LinearLayout
+                android:id="@+id/loadingContainer"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:layout_marginHorizontal="@dimen/spacing_md"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_fileName="music_loading.json"
+                    app:lottie_loop="true" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="@string/loading_music"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_body" />
+
+            </LinearLayout>
+
+            <!-- ── MUSIC PLAYER CARD ── -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/playerCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_md"
+                android:layout_marginTop="@dimen/spacing_md"
+                android:visibility="gone"
+                app:cardBackgroundColor="#00000000"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_glass_card"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/spacing_lg">
+
+                    <!-- Album art with rounded corners -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="220dp"
+                        android:layout_height="220dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="12dp">
+
+                        <ImageView
+                            android:id="@+id/ivAlbumArt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_music_placeholder"
+                            android:contentDescription="Album Art" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Equalizer animation shown while playing -->
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lottieEqualizer"
+                        android:layout_width="80dp"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="@dimen/spacing_sm"
+                        android:visibility="invisible"
+                        app:lottie_autoPlay="false"
+                        app:lottie_fileName="music_loading.json"
+                        app:lottie_loop="true" />
+
+                    <!-- Song title with marquee scroll -->
+                    <TextView
+                        android:id="@+id/tvSongTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_sm"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:text="Loading..."
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_md"
+                        tools:text="Happy - Pharrell Williams" />
+
+                    <!-- Artist name -->
+                    <TextView
+                        android:id="@+id/tvArtistName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="center"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_sm"
+                        tools:text="Pharrell Williams" />
+
+                    <!-- ── SEEK BAR ── -->
+                    <SeekBar
+                        android:id="@+id/seekBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_md"
+                        android:paddingHorizontal="4dp"
+                        android:progressTint="@color/primary"
+                        android:thumbTint="@color/primary" />
+
+                    <!-- Elapsed / Total time row -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="4dp">
+
+                        <TextView
+                            android:id="@+id/tvElapsedTime"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="0:00"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/tvTotalTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:text="0:00"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+
+                    </LinearLayout>
+
+                    <!-- Playback controls: Previous | Play/Pause | Next -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_lg"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:id="@+id/ibPrevious"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:background="@drawable/bg_glass_card"
+                            android:contentDescription="Previous track"
+                            android:padding="10dp"
+                            android:scaleType="centerInside"
+                            android:src="@android:drawable/ic_media_previous" />
+
+                        <ImageButton
+                            android:id="@+id/ibPlayPause"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_marginHorizontal="@dimen/spacing_md"
+                            android:background="@drawable/bg_btn_gradient"
+                            android:contentDescription="Play or Pause"
+                            android:padding="14dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_pause_circle" />
+
+                        <ImageButton
+                            android:id="@+id/ibNext"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:background="@drawable/bg_glass_card"
+                            android:contentDescription="Next track"
+                            android:padding="10dp"
+                            android:scaleType="centerInside"
+                            android:src="@android:drawable/ic_media_next" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Error / empty state message -->
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_md"
+                android:layout_marginTop="@dimen/spacing_sm"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:textColor="#FFFF6B6B"
+                android:textSize="@dimen/text_body"
+                android:visibility="gone"
+                tools:text="@string/no_video_found" />
+
+            <!-- ── YOUTUBE SECTION ── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_md"
+                android:layout_marginTop="@dimen/spacing_lg"
+                android:background="@drawable/bg_glass_card"
+                android:orientation="vertical"
+                android:padding="@dimen/spacing_md">
+
+                <!-- Section header -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="🔴 YouTube Songs"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_md" />
+
+                <!-- Loading spinner while fetching YouTube results -->
+                <ProgressBar
+                    android:id="@+id/pbYoutubeLoading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:visibility="gone" />
+
+                <!-- YouTube songs list -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvYoutubeSongs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="gone"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_youtube_song" />
+
+                <!-- Error or empty state for YouTube section -->
+                <TextView
+                    android:id="@+id/tvYoutubeError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_sm"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center"
+                    android:textColor="#FFFF6B6B"
+                    android:textSize="@dimen/text_sm"
+                    android:visibility="gone"
+                    tools:text="No YouTube songs found." />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Scan Again button fixed at bottom -->
+    <Button
+        android:id="@+id/btnScanAgain"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_height"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/spacing_md"
+        android:background="@drawable/bg_btn_gradient"
+        android:elevation="8dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/retry_scan"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_md" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

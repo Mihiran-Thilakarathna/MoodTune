@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Brand Colors -->
+    <color name="primary">#7C4DFF</color>
+    <color name="primary_dark">#512DA8</color>
+    <color name="primary_light">#B39DDB</color>
+    <color name="accent">#FF4081</color>
+    <color name="accent_secondary">#00E5FF</color>
+
+    <!-- Background Colors (Dark Glassmorphism Theme) -->
+    <color name="bg_dark">#0D0D1A</color>
+    <color name="bg_card">#1A1A2E</color>
+    <color name="bg_surface">#16213E</color>
+    <color name="bg_glass">#33FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#B3FFFFFF</color>
+    <color name="text_hint">#66FFFFFF</color>
+
+    <!-- Mood Colors -->
+    <color name="mood_happy">#FFD700</color>
+    <color name="mood_sad">#4A90D9</color>
+    <color name="mood_angry">#FF4444</color>
+    <color name="mood_neutral">#A0A0B0</color>
+    <color name="mood_surprised">#FF9800</color>
+    <color name="mood_fearful">#9C27B0</color>
+    <color name="mood_disgusted">#4CAF50</color>
+
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#7C4DFF</color>
+    <color name="gradient_mid">#E040FB</color>
+    <color name="gradient_end">#FF4081</color>
+
+    <!-- Scan Overlay -->
+    <color name="scan_glow">#667C4DFF</color>
+    <color name="scan_border">#7C4DFF</color>
+
+    <!-- White variants -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_10">#1AFFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_40">#66FFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Black variants -->
+    <color name="black">#FF000000</color>
+    <color name="black_60">#99000000</color>
+</resources>

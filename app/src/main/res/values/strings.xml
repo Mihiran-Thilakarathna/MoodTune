@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">MoodTune</string>
+    <string name="app_tagline">Discover music that matches your soul</string>
+
+    <!-- Splash Screen -->
+    <string name="splash_title">MoodTune</string>
+    <string name="splash_subtitle">Music for every emotion</string>
+
+    <!-- Main Screen -->
+    <string name="scan_mood_button">Scan My Mood</string>
+    <string name="scanning_text">Scanning your face…</string>
+    <string name="align_face_hint">Align your face within the circle</string>
+    <string name="detecting_emotion">Detecting emotion…</string>
+    <string name="no_face_detected">No face detected. Please try again.</string>
+    <string name="camera_permission_required">Camera permission is required to detect your mood.</string>
+    <string name="grant_permission">Grant Permission</string>
+
+    <!-- Emotions -->
+    <string name="mood_happy">Happy 😄</string>
+    <string name="mood_sad">Sad 😢</string>
+    <string name="mood_angry">Angry 😠</string>
+    <string name="mood_neutral">Neutral 😐</string>
+    <string name="mood_surprised">Surprised 😲</string>
+    <string name="mood_fearful">Fearful 😨</string>
+    <string name="mood_disgusted">Disgusted 🤢</string>
+
+    <!-- Result Screen -->
+    <string name="result_title">Your Mood Playlist</string>
+    <string name="we_detected">We detected you\'re feeling</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="loading_music">Finding the perfect song for you…</string>
+    <string name="retry_scan">Scan Again</string>
+    <string name="no_video_found">Could not find a video. Please try again.</string>
+
+    <!-- Errors -->
+    <string name="error_network">Network error. Check your connection.</string>
+    <string name="error_api">Failed to load music. Try again.</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_app_logo">MoodTune App Logo</string>
+    <string name="cd_camera_preview">Camera Preview</string>
+    <string name="cd_mood_icon">Detected mood icon</string>
+</resources>
